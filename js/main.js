@@ -1,3 +1,4 @@
+//장바구니!
 const basketStarterEl = document.querySelector('header .basket-starter')
 const basketEl = basketStarterEl.querySelector('.basket')
 
@@ -30,4 +31,56 @@ function showBasket() {
 //장바구니 팝업 숨김 함수
 function hideBasket() {
     basketEl.classList.remove('show')
+}
+
+
+//검색!
+const headerEl = document.querySelector('header')
+const headerMenuEls = [...headerEl.querySelectorAll('ul.menu > li')]
+const searchWrapEl = headerEl.querySelector('.search-wrap')
+const searchStarterEl = headerEl.querySelector('.search-starter')
+const searchCloserEl = searchWrapEl.querySelector('.search-closer')
+const searchShadowEl = searchWrapEl.querySelector('.shadow')
+const searchInputEl = searchWrapEl.querySelector('input')
+const searchDelayEls = [...searchWrapEl.querySelectorAll('li')]
+
+
+searchStarterEl.addEventListener('click', showSearch)
+searchCloserEl.addEventListener('click', hideSearch)
+searchShadowEl.addEventListener('click', hideSearch)
+
+//검색 영역 선택시 메뉴 숨김 및 검색영역 노출 함수
+function showSearch() {
+    //검색 영역 노출
+    headerEl.classList.add('searching')
+    document.documentElement.classList.add('fixed')
+    //메뉴 숨김 애니메이션
+    headerMenuEls.reverse().forEach(function (el, index) {
+        el.style.transitionDelay = index * .4 / headerMenuEls.length + 's'
+    })
+    //검색 애니메이션
+    searchDelayEls.forEach(function (el, index){
+        el.style.transitionDelay = index * .4 / searchDelayEls.length + 's'
+    })
+    //검색인풋창에 포커스
+    setTimeout(function(){
+        searchInputEl.focus()
+    }, 600)
+}
+//검색 영역 선택시 메뉴 노출 및 검색영역 숨김 함수
+function hideSearch() {
+    //검색 영역 숨김
+    headerEl.classList.remove('searching')
+    document.documentElement.classList.remove('fixed')
+    //메뉴 노출 애니메이션
+    headerMenuEls.reverse().forEach(function (el, index) {
+        el.style.transitionDelay = index * .4 / headerMenuEls.length + 's'
+    })
+    //검색 애니메이션
+    searchDelayEls.reverse().forEach(function (el, index){
+        el.style.transitionDelay = index * .4 / searchDelayEls.length + 's'
+    })
+    searchDelayEls.reverse()
+    //검색바 사라질 때 검색입력내용도 삭제(초기화)
+    searchInputEl.value = ''
 }
