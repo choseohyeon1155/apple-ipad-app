@@ -173,3 +173,7 @@ navigations.forEach(function (nav) {
 
     navigationsEl.append(mapEl)
 })
+
+// copyright / this-year
+const thisYearEl = document.querySelector('span.this-year')
+thisYearEl.textContent = new Date().getFullYear()
